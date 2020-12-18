@@ -40,10 +40,12 @@ try {
                     console.log("Proceso a ejecutar: ", datos._process_)
                     
                     var ejecucion = require('./process/' + datos._process_ + '');
-                    ejecucion(datos._data_, database_serve).then(function (info) {
+                    ejecucion(datos, database_serve).then(function (info) {
                         ws.send(JSON.stringify({ "error_": false, "resp_": info }));
+                        console.log(`finalizado con éxito ${datos._process_}`)
                     }).catch(function (err) {
                         ws.send(JSON.stringify({ "error_": true, "resp_": err }));
+                        console.log(`finalizado con fracaso ${datos._process_}`)
                     });
                     
 
