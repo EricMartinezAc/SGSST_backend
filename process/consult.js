@@ -8,6 +8,7 @@ eje = function (datos, db) {
         var correo = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
         console.log(datos, ': ', db)
+        resolve([datos,'retornado'])
     });
 };
 

@@ -37,14 +37,15 @@ try {
                 ////epera retornar { "error_": boolean, "resp_": [obj] }
                 try {
                     var datos = JSON.parse(data2);
-                    console.log("Proceso a ejecutar: ", datos.process_)
-
-                    var ejecucion = require('./process/' + datos.process_ + '');
-                    ejecucion(datos, database_serve).then(function (info) {
+                    console.log("Proceso a ejecutar: ", datos._process_)
+                    
+                    var ejecucion = require('./process/' + datos._process_ + '');
+                    ejecucion(datos._data_, database_serve).then(function (info) {
                         ws.send(JSON.stringify({ "error_": false, "resp_": info }));
                     }).catch(function (err) {
                         ws.send(JSON.stringify({ "error_": true, "resp_": err }));
                     });
+                    
 
                 } catch (e) {
                     ws.send(JSON.stringify({ "error_": true, "resp_": e }));//retorna
@@ -55,6 +56,9 @@ try {
     } catch (error) {
         console.log('conexión rota')
     }
+
+
+
 } catch (error) {
     console.log('backend OFF')
 }
