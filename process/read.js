@@ -6,8 +6,13 @@ eje = function (datos, db) {
         var msj_resp = '';
 
         console.log(`datos a consultar usuario ${arrays[0]} con psw ${arrays[1]}`)
-        console.log(`base de datos: ${db}`)
-        resolve([arrays,'retornado'])
+        var connection = db.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'my_db'
+        });
+        resolve([arrays, 'retornado'])
     });
 };
 

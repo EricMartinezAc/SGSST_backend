@@ -1,5 +1,5 @@
-try {
-    let database_serve = null;
+try {    
+    var mysql = require('mysql');
     var WebSocketServer = require("ws").Server,
         http = require("http"),
         express = require("express"),
@@ -40,7 +40,7 @@ try {
                     console.log("Proceso a ejecutar: ", datos._process_)
                     
                     var ejecucion = require('./process/' + datos._process_ + '');
-                    ejecucion(datos, database_serve).then(function (info) {
+                    ejecucion(datos, mysql).then(function (info) {
                         ws.send(JSON.stringify({ "error_": false, "resp_": info }));
                         console.log(`finalizado con éxito ${datos._process_}`)
                     }).catch(function (err) {
