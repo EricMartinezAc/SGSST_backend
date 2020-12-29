@@ -16,12 +16,13 @@ eje = function (datos, db) {
         connection.connect(function (err) {
             if (err) {
                 console.error('error connecting: ' + err.stack);
+                reject([arrays, 'reject'])
                 return;
             }
             console.log('connected as id ' + connection.threadId);
+            resolve([arrays, 'success'])
         });
 
-        resolve([arrays, 'retornado'])
     });
 };
 
