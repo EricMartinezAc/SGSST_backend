@@ -31,9 +31,9 @@ eje = function (datos, db) {
                     //define consulta
 
                     //ejecutar cosulta
-                    connection.query("SELECT id_persona FROM usuarios WHERE user_name = 'EricMartAc' AND psw = 'Rouse2017*'", function (err, result) {
+                    connection.query("SELECT `id_persona` FROM `usuarios` WHERE `user_name` = 'EricMartAc' AND `psw` = 'Rouse2017*'", function (err, result) {
                         if (err) {
-                            reject([usu, result])
+                            reject([usu, JSON.stringify(err)])
                         }
                         if (!err) {
                             resolve([usu, 'auth_success'])
