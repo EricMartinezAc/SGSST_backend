@@ -35,7 +35,12 @@ eje = function (datos, db) {
                 reject([usu, 'datos no encontrados', JSON.stringify(error)])
             }
             else {
-                resolve([usu, JSON.parse(JSON.stringify(results))[0]['id_persona'], 'success'])
+                if (JSON.parse(JSON.stringify(results))[0] === undefined) {
+                    reject([usu, 'Consulta indefinida', 'Datos no encontrados'])
+                } else {
+                    resolve([usu, JSON.parse(JSON.stringify(results))[0]['id_persona'], 'success'])
+                }
+
             }
 
         });
