@@ -16,12 +16,24 @@ eje = function (datos, db) {
             database: 'main_10001'
         });
 
-        //coexion a base de datos
+        //conexion a base de datos
+        /* Logica
+        stage 1: 
+            si error de conexion db -> reject(no se pudo conectar a base de datos)
+        stage 2:
+            si error de consulta -> resolve(Error de consulta)
+        stage 3:
+            si datos erroneos -> resolve(datos no encontrados)
+        stage 4:
+            si datos encontrados -> resolve(Bienvenido al administardor de SG-SST)
+
+        */
+
         connection.connect(function (err) {
             //si ocurre error en conexion
             if (err) {
                 console.error('error connecting: ' + err.stack);
-                reject([usu, 'undefined', 'no_connected'])
+                reject([usu, 'No se pudo conectar a base de datos', 'error'])
                 return;
             } else {
                 console.log('Conexión exitosa')
@@ -30,17 +42,16 @@ eje = function (datos, db) {
         });
 
         //Realizar consulta
-        connection.query(`SELECT id_persona FROM usuarios WHERE user_name = ${usu} AND psw = ${psw}`, function (error, results) {
+        connection.query(`SELECT id_persona, clave_seguridad FROM usuarios WHERE user_name = ${usu} AND psw = ${psw}`, function (error, results) {
             if (error) {
-                reject([usu, 'datos no encontrados', JSON.stringify(error)])
+                resolve([usu, 'Error de consulta', JSON.stringify(error)])
             }
             else {
                 if (JSON.parse(JSON.stringify(results))[0] === undefined) {
-                    reject([usu, 'Consulta indefinida', 'Datos no encontrados'])
+                    resolve([usu, 'Datos no encontrados', false])
                 } else {
-                    resolve([usu, JSON.parse(JSON.stringify(results))[0]['id_persona'], 'success'])
+                    resolve([JSON.parse(JSON.stringify(results))[0]['id_persona'], 'Bienvenido al administardor de SG-SST', true])
                 }
-
             }
 
         });
